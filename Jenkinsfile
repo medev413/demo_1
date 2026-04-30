@@ -25,6 +25,9 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building docker image...'
+                sh 'docker ps -q --filter "ancestor=my-nginx-image" | xargs -r docker stop'
+                sh 'docker ps -a -q --filter "ancestor=my-nginx-image" | xargs -r docker rm'
+                sh 'docker rmi my-nginx-image'
                 sh 'docker build -t my-nginx-image .'
             }
         }
