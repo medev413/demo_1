@@ -12,6 +12,12 @@ pipeline {
                 ]
             }
         }
+        stage('docker_check'){
+            steps {
+                echo 'Checking if Docker is installed...'
+                sh 'docker --version || echo "Docker is not installed."'
+            }
+        }
         stage('Build') {
             steps {
                 echo 'Building docker image...'
